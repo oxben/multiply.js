@@ -53,7 +53,7 @@
             app.controller('multiplyCtrl', function($scope) {
                 $scope.table = 10;
                 $scope.opA = randInt(1, $scope.table);
-                $scope.opB = randInt(1, $scope.table);
+                $scope.opB = randInt(1, 10);
                 $scope.result = null;
                 $scope.score = 0;
                 $scope.ops = [];
@@ -70,7 +70,7 @@
                     $scope.ops.unshift(op);
                     $scope.scorePercent = (100 * $scope.score / $scope.ops.length).toFixed(0);
                     $scope.opA = randInt(1, $scope.table);
-                    $scope.opB = randInt(1, $scope.table);
+                    $scope.opB = randInt(1, 10);
                     $scope.result = null;
                 };
 
