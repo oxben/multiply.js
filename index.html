@@ -32,7 +32,7 @@
                     <form class="form-inline">
                         <div class="form-group">
                             <label for="result">{{ opA }} x {{ opB }} =</label>
-                            <input type="number" class="form-control" id="result" ng-model="result"></input>
+                            <input type="number" class="form-control" id="result" ng-model="result" ng-keyup="keyUp($event)"></input>
                             <input type="button" class="form-control" value="Vérifier" ng-click="checkResult()"></input>
                         </div>
                     </form>
@@ -54,7 +54,7 @@
                 $scope.table = 10;
                 $scope.opA = randInt(1, $scope.table);
                 $scope.opB = randInt(1, $scope.table);
-                $scope.result = 0;
+                $scope.result = null;
                 $scope.score = 0;
                 $scope.ops = [];
                 $scope.scorePercent = 0;
@@ -72,6 +72,12 @@
                     $scope.opA = randInt(1, $scope.table);
                     $scope.opB = randInt(1, $scope.table);
                     $scope.result = null;
+                };
+
+                $scope.keyUp = function(event) {
+                    if (event.keyCode == 13) {
+                        $scope.checkResult();
+                    }
                 };
             });
 
