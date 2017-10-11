@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    </head>
+
+    <body>
+        <div ng-app="multiply" ng-controller="multiplyCtrl" class="container">
+            <div class="jumbotron text-center">
+                <h1>Multiplications</h1>
+                <p>Apprendre en s'amusant</p>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="table">Choisis la plus grande table à réviser</label>
+                            <input type="number" class="form-control" min="1" max="10" id="table" ng-model="table"></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-body">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="result">{{ opA }} x {{ opB }} =</label>
+                            <input type="number" class="form-control" id="result" ng-model="result"></input>
+                            <input type="button" class="form-control" value="Vérifier" ng-click="checkResult()"></input>
+                        </div>
+                    </form>
+                    <br>
+                    <ul class="list-group col-sm-3">
+                        <li ng-repeat="o in ops" class="list-group-item" ng-class="{'list-group-item-success' : o.ok, 'list-group-item-danger' : !o.ok}" > {{ o.text }}
+                            <span ng-if="o.ok" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            <span ng-if="!o.ok" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        </li> 
+                    </ul>
+                </div>
+                <div class="panel-footer">Score: {{ score }} / {{ ops.length }} - {{ scorePercent }}%</div>
+            </div>
+        </div>
+       <script>
+            var app = angular.module('multiply', []);
+            
+            app.controller('multiplyCtrl', function($scope) {
+               $scope.table = 10; 
+               $scope.opA = randInt(1, $scope.table);
+               $scope.opB = randInt(1, $scope.table);
+               $scope.result = 0;
+               $scope.score = 0;
+               $scope.ops = [];
+               $scope.scorePercent = 0;
+
+               $scope.checkResult = function() {
+                    var op = {};
+                    op.text = '' + $scope.opA + ' x ' + $scope.opB + ' = ' + $scope.result;
+                    op.ok = false;
+                    if ($scope.result == ($scope.opA * $scope.opB)) {
+                        op.ok = true;
+                        $scope.score++;
+                    }
+                    $scope.ops.unshift(op);
+                    $scope.scorePercent = (100 * $scope.score / $scope.ops.length).toFixed(0);
+                    $scope.opA = randInt(1, $scope.table);
+                    $scope.opB = randInt(1, $scope.table);
+                    $scope.result = null;
+               };
+            });
+            
+            function randInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+        </script>
+    </body>
+</html>
