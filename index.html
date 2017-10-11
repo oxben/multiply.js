@@ -41,7 +41,7 @@
                         <li ng-repeat="o in ops" class="list-group-item" ng-class="{'list-group-item-success' : o.ok, 'list-group-item-danger' : !o.ok}" > {{ o.text }}
                             <span ng-if="o.ok" class="glyphicon glyphicon-ok form-control-feedback"></span>
                             <span ng-if="!o.ok" class="glyphicon glyphicon-remove form-control-feedback"></span>
-                        </li> 
+                        </li>
                     </ul>
                 </div>
                 <div class="panel-footer">Score: {{ score }} / {{ ops.length }} - {{ scorePercent }}%</div>
@@ -49,17 +49,17 @@
         </div>
        <script>
             var app = angular.module('multiply', []);
-            
-            app.controller('multiplyCtrl', function($scope) {
-               $scope.table = 10; 
-               $scope.opA = randInt(1, $scope.table);
-               $scope.opB = randInt(1, $scope.table);
-               $scope.result = 0;
-               $scope.score = 0;
-               $scope.ops = [];
-               $scope.scorePercent = 0;
 
-               $scope.checkResult = function() {
+            app.controller('multiplyCtrl', function($scope) {
+                $scope.table = 10;
+                $scope.opA = randInt(1, $scope.table);
+                $scope.opB = randInt(1, $scope.table);
+                $scope.result = 0;
+                $scope.score = 0;
+                $scope.ops = [];
+                $scope.scorePercent = 0;
+
+                $scope.checkResult = function() {
                     var op = {};
                     op.text = '' + $scope.opA + ' x ' + $scope.opB + ' = ' + $scope.result;
                     op.ok = false;
@@ -72,9 +72,9 @@
                     $scope.opA = randInt(1, $scope.table);
                     $scope.opB = randInt(1, $scope.table);
                     $scope.result = null;
-               };
+                };
             });
-            
+
             function randInt(min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
