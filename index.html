@@ -38,13 +38,17 @@
                     </form>
                     <br>
                     <ul class="list-group col-sm-3">
-                        <li ng-repeat="o in ops" class="list-group-item" ng-class="{'list-group-item-success' : o.ok, 'list-group-item-danger' : !o.ok}" > {{ o.text }}
+                        <li ng-repeat="o in ops" class="list-group-item" ng-class="{'list-group-item-success' : o.ok, 'list-group-item-danger' : !o.ok}">
+                            {{ o.text }}
                             <span ng-if="o.ok" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            <span ng-if="!o.ok">&nbsp;&rarr;&nbsp;<b>{{ o.result }}</b></span>
                             <span ng-if="!o.ok" class="glyphicon glyphicon-remove form-control-feedback"></span>
                         </li>
                     </ul>
                 </div>
-                <div class="panel-footer">Score: {{ score }} / {{ ops.length }} - {{ scorePercent }}%</div>
+                <div class="panel-footer" style="font-weight:bold;">
+                    Score: {{ score }}/{{ ops.length }} - {{ scorePercent }}%</span>
+                </div>
             </div>
         </div>
        <script>
@@ -61,9 +65,16 @@
 
                 $scope.checkResult = function() {
                     var op = {};
+                    var true_result = 0;
+
+                    if ($scope.result == null) {
+                      return;
+                    }
+
                     op.text = '' + $scope.opA + ' x ' + $scope.opB + ' = ' + $scope.result;
                     op.ok = false;
-                    if ($scope.result == ($scope.opA * $scope.opB)) {
+                    op.result = $scope.opA * $scope.opB;
+                    if ($scope.result == op.result) {
                         op.ok = true;
                         $scope.score++;
                     }
