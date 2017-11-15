@@ -27,6 +27,9 @@
                         <div class="form-group">
                             <label for="table">Choisis la plus grande table à réviser</label>
                             <input type="number" class="form-control" min="1" max="10" id="table" ng-model="table"></input>
+                            <div class="checkbox">
+                                <label><input type="checkbox" ng-model=singleTable> Seulement cette table</label>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -58,6 +61,7 @@
 
             app.controller('multiplyCtrl', function($scope) {
                 $scope.table = 10;
+                $scope.singleTable = false;
                 $scope.opA = randInt(1, $scope.table);
                 $scope.opB = randInt(1, 10);
                 $scope.result = null;
@@ -82,7 +86,7 @@
                     }
                     $scope.ops.unshift(op);
                     $scope.scorePercent = (100 * $scope.score / $scope.ops.length).toFixed(0);
-                    $scope.opA = randInt(1, $scope.table);
+                    $scope.opA = $scope.singleTable ? $scope.table : randInt(1, $scope.table);
                     $scope.opB = randInt(1, 10);
                     $scope.result = null;
                 };
